@@ -1,0 +1,16 @@
+a [able] capable
+a [abnormal]
+a [absent]
+a [brave] courageous, fearless
+a [broken] physically separated into pieces
+a [finished]
+a [finished] ruined
+a [first] initial
+v [haunt] stalk
+v [have] have got
+v [heal] cure
+v [hear] perceive sound
+v [jest] act or speak playfully
+v [skip] pass over, skip over
+v [jump] leap, bound
+v [parachute] jump from an airplane
