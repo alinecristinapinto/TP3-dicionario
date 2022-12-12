@@ -41,7 +41,7 @@ void Significado::imprimir(){
 }
 
 Significado::~Significado(){
-    while(!(this->primeiro == nullptr)){
+    while(this->primeiro){
         this->remover();
     }
 }

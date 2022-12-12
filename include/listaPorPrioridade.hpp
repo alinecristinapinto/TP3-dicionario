@@ -19,6 +19,13 @@ public:
     ListaPorPrioridade();
 
     /**
+     * @brief Retorna se lista esta vazia
+     * 
+     * @return bool true se lista vazia, false caso contrario
+    */
+    bool vazia();
+
+    /**
      * @brief Insere um verbete a lista
      * 
      * @param verbete Verbete
@@ -28,19 +35,28 @@ public:
     /**
      * @brief Remove um verbete a lista
      * 
-     * @param verbete Verbete
+     * @param palavra verbete
+     * @param tipoVerbete tipo do verbete (a, n, v)
     */
     void remover(string verbete, string tipoVerbete);
 
     /**
-     * @brief [DEBUG] imprime fila de significados
+     * @brief Pesquisar um verbete a lista
+     * 
+     * @param palavra verbete
+     * @param tipoVerbete tipo do verbete (a, n, v)
+    */
+    Verbete pesquisar(string verbete, string tipoVerbete);
+
+    /**
+     * @brief [DEBUG] imprime verbetes
     */
     void imprimir();
 
     /**
      * @brief Destrutor da classe
     */
-    ~ListaPorPrioridade() = default;
+    ~ListaPorPrioridade();
 protected:
     No<Verbete>* primeiro;
 private:

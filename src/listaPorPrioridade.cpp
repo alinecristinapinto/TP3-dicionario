@@ -4,6 +4,10 @@ ListaPorPrioridade::ListaPorPrioridade(){
     this->primeiro = nullptr;
 }
 
+bool ListaPorPrioridade::vazia(){
+    return this->primeiro == nullptr;
+}
+
 void ListaPorPrioridade::atribuirInsercao(No<Verbete> *aux, No<Verbete> *anterior, Verbete verbete){
     No<Verbete> *novo = new No<Verbete>{verbete, aux};
     erroAssert(novo != nullptr, "Erro ao alocar memoria para verbete");
@@ -23,7 +27,7 @@ void ListaPorPrioridade::inserir(Verbete verbete){
             this->atribuirInsercao(aux, anterior, verbete);
 
             return;
-        } else if (verbete.palavra == aux->item.palavra && verbete.tipo == aux->item.tipo){
+        } else if (verbete.palavra == aux->item.palavra && verbete.tipo == aux->item.tipo && verbete.significados){
             aux->item.significados->inserir(verbete.significados->getPrimeiro());
 
             return;
@@ -39,6 +43,7 @@ void ListaPorPrioridade::inserir(Verbete verbete){
 }
 
 void ListaPorPrioridade::remover(string verbete, string tipoVerbete){
+    if(this->vazia()) return;
     No<Verbete>* atual = this->primeiro;
     No<Verbete>* remover, *anterior = nullptr;
 
@@ -59,7 +64,22 @@ void ListaPorPrioridade::remover(string verbete, string tipoVerbete){
     delete remover;
 }
 
+Verbete ListaPorPrioridade::pesquisar(string verbete, string tipoVerbete){
+    if(this->vazia()) return;
+    No<Verbete>* atual = this->primeiro;
+
+    while(atual){
+        if(atual->item.palavra == verbete && atual->item.tipo == tipoVerbete) {
+            return atual->item;
+        }
+        atual = atual->proximo;
+    }
+
+    return Verbete(nullptr, nullptr, nullptr);
+}
+
 void ListaPorPrioridade::imprimir(){
+    if(this->vazia()) return;
     No<Verbete>* atual = this->primeiro;
 
     while(atual){
@@ -68,3 +88,14 @@ void ListaPorPrioridade::imprimir(){
         atual = atual->proximo;
     } 
 }
+
+ListaPorPrioridade::~ListaPorPrioridade(){
+    if(this->vazia()) return;
+    No<Verbete>* atual = this->primeiro;
+
+    while(atual){
+        this->remover(atual->item.palavra, atual->item.tipo);
+        atual = atual->proximo;
+    }
+}
+
