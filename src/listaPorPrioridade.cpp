@@ -38,6 +38,27 @@ void ListaPorPrioridade::inserir(Verbete verbete){
     }
 }
 
+void ListaPorPrioridade::remover(string verbete, string tipoVerbete){
+    No<Verbete>* atual = this->primeiro;
+    No<Verbete>* remover, *anterior = nullptr;
+
+    while(atual){
+        if(atual->item.palavra == verbete && atual->item.tipo == tipoVerbete) {
+            if(anterior) {
+                anterior->proximo = atual->proximo;
+            } else {
+                this->primeiro = atual->proximo;
+            }
+            remover = atual;
+            break;
+        }
+        anterior = atual;
+        atual = atual->proximo;
+    }
+
+    delete remover;
+}
+
 void ListaPorPrioridade::imprimir(){
     No<Verbete>* atual = this->primeiro;
 

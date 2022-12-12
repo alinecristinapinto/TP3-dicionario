@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
     Verbete verbete3 = Verbete("pedro", "a", significado);
     Verbete verbete4 = Verbete("amanda", "a", nullptr);
     Verbete verbete5 = Verbete("alice", "a", nullptr);
-    Verbete verbete6 = Verbete("aline", "a", significado2);
+    Verbete verbete6 = Verbete("aline", "n", significado2);
     ListaPorPrioridade lista = ListaPorPrioridade();
 
     lista.inserir(verbete1);
@@ -50,6 +50,19 @@ int main(int argc, char* argv[]) {
     lista.inserir(verbete4);
     lista.inserir(verbete5);
     lista.inserir(verbete6);
+
+    lista.imprimir();
+
+    lista.remover("aline", "n");
+
+    cout << endl << endl;
+
+    lista.imprimir();
+
+    lista.remover("pedro", "a");
+    lista.remover("alice", "a");
+
+    cout << endl << endl;
 
     lista.imprimir();
 

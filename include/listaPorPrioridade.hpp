@@ -26,6 +26,13 @@ public:
     void inserir(Verbete verbete);
 
     /**
+     * @brief Remove um verbete a lista
+     * 
+     * @param verbete Verbete
+    */
+    void remover(string verbete, string tipoVerbete);
+
+    /**
      * @brief [DEBUG] imprime fila de significados
     */
     void imprimir();
