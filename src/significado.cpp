@@ -25,11 +25,15 @@ void Significado::remover(){
     delete remover;
 }
 
+string Significado::getPrimeiro(){
+    return this->primeiro->item;
+}
+
 void Significado::imprimir(){
     int posicao = 1;
     No<string>* atual = this->primeiro;
 
-    while(atual->proximo != nullptr){
+    while(atual){
         cout << posicao <<". " << atual->item << endl;
         atual = atual->proximo;
         posicao++;

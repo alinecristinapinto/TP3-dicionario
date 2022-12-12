@@ -13,7 +13,8 @@ using namespace std;
 class Verbete {
 public:
     string palavra;
-    Significado significados; 
+    string tipo;
+    Significado *significados; 
 
     /**
      * @brief Construtor generico da classe.
@@ -25,7 +26,7 @@ public:
      * 
      * @param palavra verbete
     */
-    Verbete(string palavra);
+    Verbete(string palavra, string tipo, Significado *significados);
 
     /**
      * @brief Destrutor da classe

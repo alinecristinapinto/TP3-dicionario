@@ -32,6 +32,11 @@ public:
     */
     void remover();
 
+     /**
+     * @brief retorna primeiro elemento da lista.
+    */
+    string getPrimeiro();
+
     /**
      * @brief [DEBUG] imprime fila de significados
     */
