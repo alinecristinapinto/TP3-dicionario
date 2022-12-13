@@ -34,3 +34,7 @@ void DicionarioHash::imprimir(){
     }
 }
 
+DicionarioHash::~DicionarioHash(){
+
+}
+

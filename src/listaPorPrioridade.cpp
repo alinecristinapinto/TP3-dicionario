@@ -27,8 +27,8 @@ void ListaPorPrioridade::inserir(Verbete verbete){
             this->atribuirInsercao(aux, anterior, verbete);
 
             return;
-        } else if (verbete.palavra == aux->item.palavra && verbete.tipo == aux->item.tipo && verbete.significados){
-            aux->item.significados->inserir(verbete.significados->getPrimeiro());
+        } else if (verbete.palavra == aux->item.palavra && verbete.tipo == aux->item.tipo){
+           if(verbete.significados) aux->item.significados->inserir(verbete.significados->getPrimeiro());
 
             return;
         } else if(verbete.palavra < aux->item.palavra){
@@ -65,7 +65,6 @@ void ListaPorPrioridade::remover(string verbete, string tipoVerbete){
 }
 
 Verbete ListaPorPrioridade::pesquisar(string verbete, string tipoVerbete){
-    if(this->vazia()) return;
     No<Verbete>* atual = this->primeiro;
 
     while(atual){

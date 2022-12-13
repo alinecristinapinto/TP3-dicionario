@@ -6,65 +6,46 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #include "leitorLinhaComando.hpp"
 #include "msgassert.hpp"
-
-#include "listaPorPrioridade.hpp"
 #include "verbete.hpp"
+#include "dicionarioHash.hpp"
 
 using namespace std;
+
+Verbete obterVerbete(stringstream *linha){
+    Significado *significado =  new Significado();
+    string verbete, tipo, significadoVerbete;
+
+    *linha >> tipo >> verbete >> significadoVerbete;
+
+    if(significadoVerbete != "") significado->inserir(significadoVerbete);
+    
+    // substr para remover os colchetes
+    return Verbete(verbete.substr(1, verbete.size() - 2), tipo, significado);
+}
 
 int main(int argc, char* argv[]) {
     Implementacao implementacao = LeitorLinhaComando::buscarImplementacao(argc, argv);
     string arquivoEntrada = LeitorLinhaComando::buscarNomeArquivoEntrada(argc, argv);
     string arquivoSaida = LeitorLinhaComando::buscarNomeArquivoSaida(argc, argv);
 
-    // cout << "implementacao: " << implementacao << endl;
-    // cout << "arquivo entrada: " << arquivoEntrada << endl;
-    // cout << "arquivo saida: " << arquivoSaida << endl;
+    ifstream arquivo(arquivoEntrada);
+    erroAssert(arquivo.is_open(), "Nao foi possivel ler o arquivo de entrada");
 
-    // ifstream arquivo(arquivoEntrada);
-    // erroAssert(arquivo.is_open(), "Nao foi possivel ler o arquivo de entrada");
+    DicionarioHash dicionario = DicionarioHash();
 
-    Significado *significado = new Significado();
-    significado->inserir("nome");
+    for(string linha; getline(arquivo, linha);){
+        stringstream streamLinha(linha);
+        Verbete verbete = obterVerbete(&streamLinha);
 
-    Significado *significado1 = new Significado();
-    significado1->inserir("nome1");
+        dicionario.inserir(verbete);
+    }
 
-    Significado *significado2 = new Significado();
-    significado2->inserir("nome2");
+    dicionario.imprimir();
 
-    Verbete verbete1 = Verbete("bruna", "a", significado);
-    Verbete verbete2 = Verbete("aline", "a", significado1);
-    Verbete verbete3 = Verbete("pedro", "a", significado);
-    Verbete verbete4 = Verbete("amanda", "a", nullptr);
-    Verbete verbete5 = Verbete("alice", "a", nullptr);
-    Verbete verbete6 = Verbete("aline", "n", significado2);
-    ListaPorPrioridade lista = ListaPorPrioridade();
-
-    lista.inserir(verbete1);
-    lista.inserir(verbete2);
-    lista.inserir(verbete3);
-    lista.inserir(verbete4);
-    lista.inserir(verbete5);
-    lista.inserir(verbete6);
-
-    lista.imprimir();
-
-    lista.remover("aline", "n");
-
-    cout << endl << endl;
-
-    lista.imprimir();
-
-    lista.remover("pedro", "a");
-    lista.remover("alice", "a");
-
-    cout << endl << endl;
-
-    lista.imprimir();
-
+    arquivo.close();
     return 0;
 }
