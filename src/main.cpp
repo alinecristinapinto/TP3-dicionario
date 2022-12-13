@@ -19,7 +19,8 @@ Verbete obterVerbete(stringstream *linha){
     Significado *significado =  new Significado();
     string verbete, tipo, significadoVerbete;
 
-    *linha >> tipo >> verbete >> significadoVerbete;
+    *linha >> tipo >> verbete;
+    significadoVerbete = linha->str().substr(linha->str().find("]")+1,  linha->str().size());
 
     if(significadoVerbete != "") significado->inserir(significadoVerbete);
     
