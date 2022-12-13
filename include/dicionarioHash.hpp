@@ -47,12 +47,28 @@ public:
     void imprimir();
 
     /**
+     * @brief [DEBUG] imprime odernado
+    */
+    void imprimirOrdenado();
+
+    /**
+     * @brief Escreve ordenado TBD
+    */
+    void escreverOrdenado();
+
+    /**
+     * @brief Remove os verbetes do hash que possuem algum significado
+    */
+    void removerVerbetesComSignificado();
+
+    /**
      * @brief Destrutor da classe
     */
     ~DicionarioHash();
 
 private:
     ListaPorPrioridade tabela[M];
+    string alfabeto = "abcdefghijklmnopqrstuvwxyz";
 
     /**
      * @brief Aplica formula do hash h(i) = i % 26 para encontrar indice da tabela referente ao verbete

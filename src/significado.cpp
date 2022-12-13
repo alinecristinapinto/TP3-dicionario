@@ -25,8 +25,8 @@ void Significado::remover(){
     delete remover;
 }
 
-string Significado::getPrimeiro(){
-    return this->primeiro->item;
+No<string>* Significado::getPrimeiro(){
+    return this->primeiro;
 }
 
 void Significado::imprimir(){

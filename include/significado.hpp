@@ -35,7 +35,7 @@ public:
      /**
      * @brief retorna primeiro elemento da lista.
     */
-    string getPrimeiro();
+    No<string>* getPrimeiro();
 
     /**
      * @brief [DEBUG] imprime fila de significados

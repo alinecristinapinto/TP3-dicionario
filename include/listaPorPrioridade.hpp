@@ -54,6 +54,11 @@ public:
     void imprimir();
 
     /**
+     * @brief retorna lista de verbetes
+    */
+     No<Verbete>* getLista();
+
+    /**
      * @brief Destrutor da classe
     */
     ~ListaPorPrioridade();

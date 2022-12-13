@@ -1,10 +1,6 @@
 #include "dicionarioHash.hpp"
 
-DicionarioHash::DicionarioHash(){
-    for(int i=0; i<M; i++){
-        this->tabela[i] = ListaPorPrioridade();
-    }
-}
+DicionarioHash::DicionarioHash(){}
 
 int DicionarioHash::Hash(string verbete){
     char i = verbete[0];
@@ -34,7 +30,47 @@ void DicionarioHash::imprimir(){
     }
 }
 
-DicionarioHash::~DicionarioHash(){
+void DicionarioHash::imprimirOrdenado(){
+    int indice = 0;
 
+    for(int i=0; i<M; i++){
+        string letra(1, this->alfabeto[i]);
+        indice = this->Hash(letra);
+
+        if(!this->tabela[indice].vazia()){
+            this->tabela[indice].imprimir();
+        }
+    }
+}
+
+void DicionarioHash::removerVerbetesComSignificado(){
+    No<Verbete>* aux = nullptr;
+
+    for(int i=0; i<M; i++){
+        if(!this->tabela[i].vazia()){
+            aux = this->tabela[i].getLista();
+            while (aux){
+                if(aux->item.significados->getPrimeiro() != nullptr){
+                    this->remover(aux->item);
+                }
+                aux = aux->proximo;
+            }
+            
+        }
+    }
+}
+
+DicionarioHash::~DicionarioHash(){
+    No<Verbete>* aux = nullptr;
+
+    for(int i=0; i<M; i++){
+        if(!this->tabela[i].vazia()){
+            aux = this->tabela[i].getLista();
+            while (aux){
+                this->remover(aux->item);
+                aux = aux->proximo;
+            }
+        }
+    }
 }
 

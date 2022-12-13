@@ -28,7 +28,8 @@ void ListaPorPrioridade::inserir(Verbete verbete){
 
             return;
         } else if (verbete.palavra == aux->item.palavra && verbete.tipo == aux->item.tipo){
-           if(verbete.significados) aux->item.significados->inserir(verbete.significados->getPrimeiro());
+            if(verbete.significados) 
+                aux->item.significados->inserir(verbete.significados->getPrimeiro()->item);
 
             return;
         } else if(verbete.palavra < aux->item.palavra){
@@ -86,6 +87,10 @@ void ListaPorPrioridade::imprimir(){
         if(atual->item.significados) atual->item.significados->imprimir();
         atual = atual->proximo;
     } 
+}
+
+No<Verbete>* ListaPorPrioridade::getLista(){
+    return this->primeiro;
 }
 
 ListaPorPrioridade::~ListaPorPrioridade(){

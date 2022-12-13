@@ -36,16 +36,26 @@ int main(int argc, char* argv[]) {
     ifstream arquivo(arquivoEntrada);
     erroAssert(arquivo.is_open(), "Nao foi possivel ler o arquivo de entrada");
 
-    DicionarioHash dicionario = DicionarioHash();
+    if(implementacao == HASH){
+        DicionarioHash dicionario = DicionarioHash();
+        
+        for(string linha; getline(arquivo, linha);){
+            stringstream streamLinha(linha);
+            Verbete verbete = obterVerbete(&streamLinha);
 
-    for(string linha; getline(arquivo, linha);){
-        stringstream streamLinha(linha);
-        Verbete verbete = obterVerbete(&streamLinha);
+            dicionario.inserir(verbete);
+        }
 
-        dicionario.inserir(verbete);
+        dicionario.imprimirOrdenado();
+
+        cout << endl << " - - " << endl;
+
+        dicionario.removerVerbetesComSignificado();
+
+        dicionario.imprimirOrdenado();
+    } else {
+        // ARVORE
     }
-
-    dicionario.imprimir();
 
     arquivo.close();
     return 0;
