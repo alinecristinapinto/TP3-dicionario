@@ -9,4 +9,14 @@ template <typename T> struct No {
     No* proximo; 
 }; 
 
+/**
+ * @brief Struct que representa um no de uma arvore generica generica
+ */
+template <typename T> struct Nodo {  
+    T item; 
+    Nodo* esquerda;
+    Nodo* direita; 
+    int altura;
+}; 
+
 #endif

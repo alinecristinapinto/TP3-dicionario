@@ -12,6 +12,7 @@
 #include "msgassert.hpp"
 #include "verbete.hpp"
 #include "dicionarioHash.hpp"
+#include "dicionarioAvl.hpp"
 
 using namespace std;
 
@@ -54,7 +55,18 @@ int main(int argc, char* argv[]) {
 
         dicionario.imprimirOrdenado();
     } else {
-        // ARVORE
+        DicionarioAvl dicionario = DicionarioAvl();
+
+        for(string linha; getline(arquivo, linha);){
+            stringstream streamLinha(linha);
+            Verbete verbete = obterVerbete(&streamLinha);
+
+            cout << verbete.palavra << endl;
+
+            dicionario.inserir(verbete);
+        }
+
+        // dicionario.imprimirOrdenado();
     }
 
     arquivo.close();
