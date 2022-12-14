@@ -33,14 +33,6 @@ public:
     void remover(Verbete verbete);
 
     /**
-     * @brief Pesquisar um verbete na arvore
-     * 
-     * @param palavra verbete
-     * @param tipoVerbete tipo do verbete (a, n, v)
-    */
-    Verbete pesquisar(string verbete, string tipoVerbete);
-
-    /**
      * @brief [DEBUG] imprime verbetes
     */
     void imprimir();
@@ -94,9 +86,14 @@ private:
     int getBalanceamento(Nodo<Verbete>* nodo);
 
     /**
-     * @brief Insere um verbete na tabela hash
+     * @brief Insere um verbete na arvore de forma recursiva
     */
-    Nodo<Verbete>* inserirRecursivo( Nodo<Verbete>* nodo, Verbete verbete);
+    Nodo<Verbete>* inserirRecursivo(Nodo<Verbete>* nodo, Verbete verbete);
+
+    /**
+     * @brief Remove um verbete na tabela hash
+    */
+    Nodo<Verbete>* removerRecursivo(Nodo<Verbete>* nodo, Verbete verbete);
 
     /**
      * @brief [DEBUG] imprime inorder

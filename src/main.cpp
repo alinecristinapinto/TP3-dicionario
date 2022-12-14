@@ -65,6 +65,10 @@ int main(int argc, char* argv[]) {
         }
 
         dicionario.imprimirOrdenado();
+
+        cout << endl << " - - " << endl;
+
+        
     }
 
     arquivo.close();

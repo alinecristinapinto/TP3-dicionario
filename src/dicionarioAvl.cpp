@@ -94,6 +94,53 @@ void DicionarioAvl::inserir(Verbete verbete){
     this->raiz = inserirRecursivo(this->raiz, verbete);
 }
 
+Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete verbete){
+    if(nodo == nullptr) return nodo;
+    bool verbeteAEsquerda = verbete.palavra < nodo->item.palavra || (verbete.palavra == nodo->item.palavra && verbete.tipo < nodo->item.tipo);
+    bool verbeteADireita = verbete.palavra > nodo->item.palavra || (verbete.palavra == nodo->item.palavra && verbete.tipo > nodo->item.tipo);
+
+    if(verbeteADireita){
+        nodo->esquerda = removerRecursivo(nodo->esquerda, verbete);
+    } else if(verbeteADireita){
+        nodo->direita = removerRecursivo(nodo->direita, verbete);
+    } else { // Verbete encontrado
+        if(nodo->esquerda == nullptr || nodo->direita == nullptr){
+            Nodo<Verbete> *aux = nodo->esquerda ? nodo->esquerda : nodo->direita;
+  
+            if (aux == nullptr) { 
+                aux = nodo;
+                nodo = nullptr;
+            } else { 
+                *nodo = *aux; 
+            } 
+
+            delete aux;
+        } else { // Verbete tem filhos a esquerda e a direita
+                       // node with two children: Get the inorder
+            // successor (smallest in the right subtree)
+            // struct Node* temp = minValueNode(root->right);
+  
+            // Copy the inorder successor's data to this node
+            // root->key = temp->key;
+  
+            nodo->direita = removerRecursivo(nodo->direita, verbete);
+        }
+    }
+
+    if(nodo == nullptr) return nodo;
+
+    nodo->altura = 1 + this->maximo(this->getAltura(nodo->esquerda), this->getAltura(nodo->direita));
+    int balanceamento = this->getBalanceamento(nodo);
+
+    // casos
+
+    return nodo;
+}
+
+void DicionarioAvl::remover(Verbete verbete){
+    this->raiz = this->removerRecursivo(this->raiz, verbete);
+}
+
 void DicionarioAvl::imprimirInorder(Nodo<Verbete>* nodo){
     if(nodo == nullptr) return;
 
