@@ -32,6 +32,10 @@ void ListaPorPrioridade::inserir(Verbete verbete){
                 aux->item.significados->inserir(verbete.significados->getPrimeiro()->item);
 
             return;
+        } else if(verbete.palavra == aux->item.palavra && verbete.tipo < aux->item.tipo){
+            this->atribuirInsercao(aux, anterior, verbete);
+
+            return;
         } else if(verbete.palavra < aux->item.palavra){
             this->atribuirInsercao(aux, anterior, verbete);
 
@@ -83,7 +87,7 @@ void ListaPorPrioridade::imprimir(){
     No<Verbete>* atual = this->primeiro;
 
     while(atual){
-        cout << atual->item.palavra << "(" << atual->item.tipo << ")" << endl;
+        cout << atual->item.palavra << " (" << atual->item.tipo << ")" << endl;
         if(atual->item.significados) atual->item.significados->imprimir();
         atual = atual->proximo;
     } 

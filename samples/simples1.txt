@@ -1,3 +1,4 @@
+n [first] second
 a [able] capable
 a [abnormal]
 a [absent]
@@ -5,6 +6,7 @@ a [brave] courageous, fearless
 a [broken] physically separated into pieces
 a [finished]
 a [finished] ruined
+v [first] third
 a [first] initial
 v [haunt] stalk
 v [have] have got
