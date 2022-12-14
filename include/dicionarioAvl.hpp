@@ -97,6 +97,11 @@ private:
      * @brief Insere um verbete na tabela hash
     */
     Nodo<Verbete>* inserirRecursivo( Nodo<Verbete>* nodo, Verbete verbete);
+
+    /**
+     * @brief [DEBUG] imprime inorder
+    */
+    void imprimirInorder(Nodo<Verbete>* nodo);
 };
 
 #endif

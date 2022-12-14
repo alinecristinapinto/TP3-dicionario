@@ -61,12 +61,10 @@ int main(int argc, char* argv[]) {
             stringstream streamLinha(linha);
             Verbete verbete = obterVerbete(&streamLinha);
 
-            cout << verbete.palavra << endl;
-
             dicionario.inserir(verbete);
         }
 
-        // dicionario.imprimirOrdenado();
+        dicionario.imprimirOrdenado();
     }
 
     arquivo.close();
