@@ -93,6 +93,18 @@ void ListaPorPrioridade::imprimir(){
     } 
 }
 
+void ListaPorPrioridade::escrever(ofstream *arquivoSaida){
+    if(this->vazia()) return;
+    No<Verbete>* atual = this->primeiro;
+
+    while(atual){
+        *arquivoSaida << atual->item.palavra << " (" << atual->item.tipo << ")" << endl;
+        if(atual->item.significados) atual->item.significados->imprimir();
+        atual = atual->proximo;
+    } 
+}
+
+
 No<Verbete>* ListaPorPrioridade::getLista(){
     return this->primeiro;
 }

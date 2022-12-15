@@ -2,6 +2,7 @@
 #define DICIONARIOHASH_H
 
 #include <iostream>
+#include <fstream>
 #include "verbete.hpp"
 #include "listaPorPrioridade.hpp"
 
@@ -52,9 +53,9 @@ public:
     void imprimirOrdenado();
 
     /**
-     * @brief Escreve ordenado TBD
+     * @brief Escreve ordenado
     */
-    void escreverOrdenado();
+    void escreverOrdenado(ofstream *arquivoSaida);
 
     /**
      * @brief Remove os verbetes do hash que possuem algum significado

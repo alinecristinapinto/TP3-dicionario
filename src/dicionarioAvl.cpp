@@ -195,6 +195,19 @@ void DicionarioAvl::imprimirInorder(Nodo<Verbete>* nodo){
     imprimirInorder(nodo->direita);
 }
 
+void DicionarioAvl::escreverInorder(Nodo<Verbete>* nodo, ofstream *arquivoSaida){
+    if(nodo == nullptr) return;
+
+    escreverInorder(nodo->esquerda, arquivoSaida);
+    *arquivoSaida << nodo->item.palavra << " (" << nodo->item.tipo << ")" << endl;
+    nodo->item.significados->escrever(arquivoSaida);
+    escreverInorder(nodo->direita, arquivoSaida);
+}
+
+void DicionarioAvl::escreverOrdenado(ofstream *arquivoSaida){
+    this->escreverInorder(this->raiz, arquivoSaida);
+}
+
 void DicionarioAvl::imprimirOrdenado(){
     this->imprimirInorder(this->raiz);
 }

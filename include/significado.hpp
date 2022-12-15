@@ -2,6 +2,7 @@
 #define SIGNIFICADO_H
 
 #include <iostream>
+#include <fstream>
 
 #include "no.hpp"
 
@@ -41,6 +42,11 @@ public:
      * @brief [DEBUG] imprime fila de significados
     */
     void imprimir();
+
+    /**
+     * @brief escrever fila de significados
+    */
+    void escrever(ofstream *arquivoSaida);
 
     /**
      * @brief Destrutor da classe

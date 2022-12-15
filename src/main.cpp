@@ -31,11 +31,15 @@ Verbete obterVerbete(stringstream *linha){
 
 int main(int argc, char* argv[]) {
     Implementacao implementacao = LeitorLinhaComando::buscarImplementacao(argc, argv);
-    string arquivoEntrada = LeitorLinhaComando::buscarNomeArquivoEntrada(argc, argv);
-    string arquivoSaida = LeitorLinhaComando::buscarNomeArquivoSaida(argc, argv);
+    string nomeArquivoEntrada = LeitorLinhaComando::buscarNomeArquivoEntrada(argc, argv);
+    string nomeArquivoSaida = LeitorLinhaComando::buscarNomeArquivoSaida(argc, argv);
 
-    ifstream arquivo(arquivoEntrada);
+    ifstream arquivo(nomeArquivoEntrada);
     erroAssert(arquivo.is_open(), "Nao foi possivel ler o arquivo de entrada");
+
+    ofstream arquivoSaida;
+    arquivoSaida.open(nomeArquivoSaida);
+    erroAssert(arquivoSaida.is_open(), "Nao foi possivel escrever no arquivo de saida");
 
     if(implementacao == HASH){
         DicionarioHash dicionario = DicionarioHash();
@@ -47,14 +51,12 @@ int main(int argc, char* argv[]) {
             dicionario.inserir(verbete);
         }
 
-        dicionario.imprimirOrdenado();
-
-        cout << endl << " - - " << endl;
+        dicionario.escreverOrdenado(&arquivoSaida);
 
         dicionario.removerVerbetesComSignificado();
 
-        dicionario.imprimirOrdenado();
-    } else {
+        dicionario.escreverOrdenado(&arquivoSaida);
+     } else {
         DicionarioAvl dicionario = DicionarioAvl();
 
         for(string linha; getline(arquivo, linha);){
@@ -64,13 +66,11 @@ int main(int argc, char* argv[]) {
             dicionario.inserir(verbete);
         }
 
-        dicionario.imprimirOrdenado();
-
-        cout << endl << " - - " << endl;
+        dicionario.escreverOrdenado(&arquivoSaida);
 
         dicionario.removerVerbetesComSignificado();
 
-        dicionario.imprimirOrdenado();
+        dicionario.escreverOrdenado(&arquivoSaida);
     }
 
     arquivo.close();

@@ -2,6 +2,7 @@
 #define LISTAPRIORIDADE_H
 
 #include <iostream>
+#include <fstream>
 #include "verbete.hpp"
 #include "no.hpp"
 #include "msgassert.hpp"
@@ -52,6 +53,11 @@ public:
      * @brief [DEBUG] imprime verbetes
     */
     void imprimir();
+
+    /**
+     * @brief escreve verbetes
+    */
+    void escrever(ofstream *arquivoSaida);
 
     /**
      * @brief retorna lista de verbetes

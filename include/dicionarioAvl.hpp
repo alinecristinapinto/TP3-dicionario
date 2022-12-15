@@ -2,6 +2,7 @@
 #define DICIONARIOAVL_H
 
 #include <iostream>
+#include <fstream>
 #include "no.hpp"
 #include "verbete.hpp"
 
@@ -43,9 +44,9 @@ public:
     void imprimirOrdenado();
 
     /**
-     * @brief Escreve ordenado TBD
+     * @brief Escreve ordenado
     */
-    void escreverOrdenado();
+    void escreverOrdenado(ofstream *arquivoSaida);
 
     /**
      * @brief Remove os verbetes do hash que possuem algum significado
@@ -109,6 +110,11 @@ private:
      * @brief [DEBUG] imprime inorder
     */
     void imprimirInorder(Nodo<Verbete>* nodo);
+
+    /**
+     * @brief escreve inorder
+    */
+    void escreverInorder(Nodo<Verbete>* nodo, ofstream *arquivoSaida);
 };
 
 #endif

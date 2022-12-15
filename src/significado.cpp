@@ -40,6 +40,17 @@ void Significado::imprimir(){
     }
 }
 
+void Significado::escrever(ofstream *arquivoSaida){
+    int posicao = 1;
+    No<string>* atual = this->primeiro;
+
+    while(atual){
+        *arquivoSaida << posicao <<". " << atual->item << endl;
+        atual = atual->proximo;
+        posicao++;
+    }
+}
+
 Significado::~Significado(){
     while(this->primeiro){
         this->remover();

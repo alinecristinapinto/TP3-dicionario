@@ -60,6 +60,19 @@ void DicionarioHash::removerVerbetesComSignificado(){
     }
 }
 
+void DicionarioHash::escreverOrdenado(ofstream *arquivoSaida){
+    int indice = 0;
+
+    for(int i=0; i<M; i++){
+        string letra(1, this->alfabeto[i]);
+        indice = this->Hash(letra);
+
+        if(!this->tabela[indice].vazia()){
+            this->tabela[indice].escrever(arquivoSaida);
+        }
+    }
+}
+
 DicionarioHash::~DicionarioHash(){
     No<Verbete>* aux = nullptr;
 
