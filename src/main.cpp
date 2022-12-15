@@ -68,7 +68,9 @@ int main(int argc, char* argv[]) {
 
         cout << endl << " - - " << endl;
 
-        
+        dicionario.removerVerbetesComSignificado();
+
+        dicionario.imprimirOrdenado();
     }
 
     arquivo.close();

@@ -94,6 +94,16 @@ private:
      * @brief Remove um verbete na tabela hash
     */
     Nodo<Verbete>* removerRecursivo(Nodo<Verbete>* nodo, Verbete verbete);
+   
+    /**
+     * @brief Pesquisa e retorna o menor nodo de uma arvore (nao vazia)
+    */
+    Nodo<Verbete>* buscarMenorVerbete(Nodo<Verbete>* nodo);
+
+    /**
+     * @brief Retorna verbete com significado
+    */
+    Verbete verbeteComSignificado(Nodo<Verbete>* nodo);
 
     /**
      * @brief [DEBUG] imprime inorder

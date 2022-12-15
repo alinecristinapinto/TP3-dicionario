@@ -94,12 +94,21 @@ void DicionarioAvl::inserir(Verbete verbete){
     this->raiz = inserirRecursivo(this->raiz, verbete);
 }
 
+Nodo<Verbete>* DicionarioAvl::buscarMenorVerbete(Nodo<Verbete>* nodo){
+    Nodo<Verbete>* atual = nodo;
+  
+    while (atual->esquerda != nullptr)
+        atual = atual->esquerda;
+  
+    return atual;
+}
+
 Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete verbete){
     if(nodo == nullptr) return nodo;
     bool verbeteAEsquerda = verbete.palavra < nodo->item.palavra || (verbete.palavra == nodo->item.palavra && verbete.tipo < nodo->item.tipo);
     bool verbeteADireita = verbete.palavra > nodo->item.palavra || (verbete.palavra == nodo->item.palavra && verbete.tipo > nodo->item.tipo);
 
-    if(verbeteADireita){
+    if(verbeteAEsquerda){
         nodo->esquerda = removerRecursivo(nodo->esquerda, verbete);
     } else if(verbeteADireita){
         nodo->direita = removerRecursivo(nodo->direita, verbete);
@@ -116,12 +125,9 @@ Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete verb
 
             delete aux;
         } else { // Verbete tem filhos a esquerda e a direita
-                       // node with two children: Get the inorder
-            // successor (smallest in the right subtree)
-            // struct Node* temp = minValueNode(root->right);
-  
-            // Copy the inorder successor's data to this node
-            // root->key = temp->key;
+            Nodo<Verbete> *aux = buscarMenorVerbete(nodo->direita);
+
+            nodo->item = aux->item;
   
             nodo->direita = removerRecursivo(nodo->direita, verbete);
         }
@@ -134,11 +140,50 @@ Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete verb
 
     // casos
 
+    if (balanceamento > 1 && this->getBalanceamento(nodo->esquerda) >= 0)
+        return this->rotacionarDireita(nodo);
+
+    if (balanceamento < -1 && this->getBalanceamento(nodo->direita) <= 0)
+        return this->rotacionarEsquerda(nodo);
+
+    if (balanceamento > 1 && this->getBalanceamento(nodo->esquerda) < 0){
+        nodo->esquerda =  this->rotacionarEsquerda(nodo->esquerda);
+        return this->rotacionarDireita(nodo);
+    }
+
+    if (balanceamento < -1 && this->getBalanceamento(nodo->direita) > 0){
+        nodo->direita = this->rotacionarDireita(nodo->direita);
+        return this->rotacionarEsquerda(nodo);
+    }
+
     return nodo;
 }
 
 void DicionarioAvl::remover(Verbete verbete){
     this->raiz = this->removerRecursivo(this->raiz, verbete);
+}
+
+Verbete DicionarioAvl::verbeteComSignificado(Nodo<Verbete>* nodo){
+    if(nodo == nullptr) return Verbete();
+    Verbete aux = Verbete();
+
+    aux = verbeteComSignificado(nodo->esquerda);
+    if(aux.palavra != "") return aux;
+    if(nodo->item.significados->getPrimeiro() != nullptr){
+        return nodo->item;
+    };
+    aux = verbeteComSignificado(nodo->direita);
+    if(aux.palavra != "") return aux;
+
+    return Verbete();
+}
+
+void DicionarioAvl::removerVerbetesComSignificado(){
+    Verbete verbete = Verbete();
+    do {
+        verbete = this->verbeteComSignificado(this->raiz);
+        if(verbete.palavra != "") this->remover(verbete);
+    } while(verbete.palavra != "");
 }
 
 void DicionarioAvl::imprimirInorder(Nodo<Verbete>* nodo){
