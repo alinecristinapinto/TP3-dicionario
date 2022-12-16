@@ -105,8 +105,6 @@ Nodo<Verbete>* DicionarioAvl::buscarMenorVerbete(Nodo<Verbete>* nodo){
 
 Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete *verbete){
     if(nodo == nullptr) return nodo;
-    bool verbeteAEsquerda = verbete->palavra < nodo->item->palavra || (verbete->palavra == nodo->item->palavra && verbete->tipo < nodo->item->tipo);
-    bool verbeteADireita = verbete->palavra > nodo->item->palavra || (verbete->palavra == nodo->item->palavra && verbete->tipo > nodo->item->tipo);
 
     if(verbete->palavra < nodo->item->palavra){
         nodo->esquerda = removerRecursivo(nodo->esquerda, verbete);
@@ -131,12 +129,9 @@ Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete *ver
         } else { // Verbete tem filhos a esquerda e a direita
             Nodo<Verbete> *aux = buscarMenorVerbete(nodo->direita);
 
-            cout << " 1 " << nodo->item->palavra << " " << nodo->item->significados->getPrimeiro() << endl;
             nodo->item = new Verbete(*aux->item);
-            cout << " 2 " << nodo->item->palavra << " " << nodo->item->significados->getPrimeiro() << endl;
-
-  
-            nodo->direita = removerRecursivo(nodo->direita, verbete);
+           
+            nodo->direita = removerRecursivo(nodo->direita, aux->item);
         }
     }
 
