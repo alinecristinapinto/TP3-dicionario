@@ -16,17 +16,17 @@
 
 using namespace std;
 
-Verbete obterVerbete(stringstream *linha){
+Verbete* obterVerbete(stringstream *linha){
     Significado *significado =  new Significado();
     string verbete, tipo, significadoVerbete;
 
-    *linha >> tipo >> verbete;
+    *linha >> tipo; 
+    verbete = linha->str().substr(linha->str().find("[")+1,  linha->str().find("]") - linha->str().find("[")-1);
     significadoVerbete = linha->str().substr(linha->str().find("]")+1,  linha->str().size());
 
     if(significadoVerbete != "") significado->inserir(significadoVerbete);
     
-    // substr para remover os colchetes
-    return Verbete(verbete.substr(1, verbete.size() - 2), tipo, significado);
+    return new Verbete(verbete, tipo, significado);
 }
 
 int main(int argc, char* argv[]) {
@@ -46,9 +46,9 @@ int main(int argc, char* argv[]) {
         
         for(string linha; getline(arquivo, linha);){
             stringstream streamLinha(linha);
-            Verbete verbete = obterVerbete(&streamLinha);
+            Verbete* verbete = obterVerbete(&streamLinha);
 
-            dicionario.inserir(verbete);
+            dicionario.inserir(*verbete);
         }
 
         dicionario.escreverOrdenado(&arquivoSaida);
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 
         for(string linha; getline(arquivo, linha);){
             stringstream streamLinha(linha);
-            Verbete verbete = obterVerbete(&streamLinha);
+            Verbete* verbete = obterVerbete(&streamLinha);
 
             dicionario.inserir(verbete);
         }

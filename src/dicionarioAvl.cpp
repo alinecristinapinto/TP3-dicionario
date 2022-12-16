@@ -42,20 +42,20 @@ int DicionarioAvl::getBalanceamento(Nodo<Verbete>* nodo){
     return nodo ? this->getAltura(nodo->esquerda) - this->getAltura(nodo->direita) : 0;
 }
 
-Nodo<Verbete>* DicionarioAvl::inserirRecursivo(Nodo<Verbete>* nodo, Verbete verbete){
+Nodo<Verbete>* DicionarioAvl::inserirRecursivo(Nodo<Verbete>* nodo, Verbete* verbete){
     if(nodo == nullptr){
         Nodo<Verbete>* novo = new Nodo<Verbete>{verbete, nullptr, nullptr, 1};
 
         return novo;
     }
 
-    if((verbete.palavra < nodo->item.palavra) || (verbete.palavra == nodo->item.palavra && verbete.tipo < nodo->item.tipo)){
+    if((verbete->palavra < nodo->item->palavra) || (verbete->palavra == nodo->item->palavra && verbete->tipo < nodo->item->tipo)){
         nodo->esquerda = inserirRecursivo(nodo->esquerda, verbete);
-    } else if((verbete.palavra > nodo->item.palavra) || (verbete.palavra == nodo->item.palavra && verbete.tipo > nodo->item.tipo)){
+    } else if((verbete->palavra > nodo->item->palavra) || (verbete->palavra == nodo->item->palavra && verbete->tipo > nodo->item->tipo)){
         nodo->direita = inserirRecursivo(nodo->direita, verbete);
     } else {
-        if(verbete.significados) 
-            nodo->item.significados->inserir(verbete.significados->getPrimeiro()->item);
+        if(verbete->significados->primeiro) 
+            nodo->item->significados->inserir(verbete->significados->getPrimeiro()->item);
 
         return nodo;
     }
@@ -66,22 +66,22 @@ Nodo<Verbete>* DicionarioAvl::inserirRecursivo(Nodo<Verbete>* nodo, Verbete verb
     int balanceamento = this->getBalanceamento(nodo);
 
     // Casos
-    bool chaveMenorItemAEsquerda = nodo->esquerda && ((verbete.palavra < nodo->esquerda->item.palavra) || (verbete.palavra == nodo->esquerda->item.palavra && verbete.tipo < nodo->esquerda->item.tipo));
+    bool chaveMenorItemAEsquerda = nodo->esquerda && ((verbete->palavra < nodo->esquerda->item->palavra) || (verbete->palavra == nodo->esquerda->item->palavra && verbete->tipo < nodo->esquerda->item->tipo));
     if (balanceamento > 1 && chaveMenorItemAEsquerda)
         return this->rotacionarDireita(nodo);
  
-    bool chaveMaiorItemADireita = nodo->direita && ((verbete.palavra > nodo->direita->item.palavra) || (verbete.palavra == nodo->direita->item.palavra && verbete.tipo > nodo->direita->item.tipo));
+    bool chaveMaiorItemADireita = nodo->direita && ((verbete->palavra > nodo->direita->item->palavra) || (verbete->palavra == nodo->direita->item->palavra && verbete->tipo > nodo->direita->item->tipo));
     if (balanceamento < -1 && chaveMaiorItemADireita)
         return this->rotacionarEsquerda(nodo);
 
  
-    bool chaveMaiorItemAEsquerda = nodo->esquerda && ((verbete.palavra > nodo->esquerda->item.palavra) || (verbete.palavra == nodo->esquerda->item.palavra && verbete.tipo > nodo->esquerda->item.tipo));
+    bool chaveMaiorItemAEsquerda = nodo->esquerda && ((verbete->palavra > nodo->esquerda->item->palavra) || (verbete->palavra == nodo->esquerda->item->palavra && verbete->tipo > nodo->esquerda->item->tipo));
     if (balanceamento > 1 && chaveMaiorItemAEsquerda){
         nodo->esquerda =  this->rotacionarEsquerda(nodo->esquerda);
         return this->rotacionarDireita(nodo);
     }
  
-    bool chaveMenorItemADireita = nodo->direita && ((verbete.palavra < nodo->direita->item.palavra) || (verbete.palavra == nodo->direita->item.palavra && verbete.tipo < nodo->direita->item.tipo));
+    bool chaveMenorItemADireita = nodo->direita && ((verbete->palavra < nodo->direita->item->palavra) || (verbete->palavra == nodo->direita->item->palavra && verbete->tipo < nodo->direita->item->tipo));
     if (balanceamento < -1 && chaveMenorItemADireita){
         nodo->direita = this->rotacionarDireita(nodo->direita);
         return this->rotacionarEsquerda(nodo);
@@ -90,7 +90,7 @@ Nodo<Verbete>* DicionarioAvl::inserirRecursivo(Nodo<Verbete>* nodo, Verbete verb
     return nodo;
 }
 
-void DicionarioAvl::inserir(Verbete verbete){
+void DicionarioAvl::inserir(Verbete *verbete){
     this->raiz = inserirRecursivo(this->raiz, verbete);
 }
 
@@ -103,16 +103,20 @@ Nodo<Verbete>* DicionarioAvl::buscarMenorVerbete(Nodo<Verbete>* nodo){
     return atual;
 }
 
-Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete verbete){
+Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete *verbete){
     if(nodo == nullptr) return nodo;
-    bool verbeteAEsquerda = verbete.palavra < nodo->item.palavra || (verbete.palavra == nodo->item.palavra && verbete.tipo < nodo->item.tipo);
-    bool verbeteADireita = verbete.palavra > nodo->item.palavra || (verbete.palavra == nodo->item.palavra && verbete.tipo > nodo->item.tipo);
+    bool verbeteAEsquerda = verbete->palavra < nodo->item->palavra || (verbete->palavra == nodo->item->palavra && verbete->tipo < nodo->item->tipo);
+    bool verbeteADireita = verbete->palavra > nodo->item->palavra || (verbete->palavra == nodo->item->palavra && verbete->tipo > nodo->item->tipo);
 
-    if(verbeteAEsquerda){
+    if(verbete->palavra < nodo->item->palavra){
         nodo->esquerda = removerRecursivo(nodo->esquerda, verbete);
-    } else if(verbeteADireita){
+    }else if(verbete->palavra > nodo->item->palavra){
         nodo->direita = removerRecursivo(nodo->direita, verbete);
-    } else { // Verbete encontrado
+    } else if(verbete->palavra == nodo->item->palavra && verbete->tipo != nodo->item->tipo){
+        nodo->esquerda = removerRecursivo(nodo->esquerda, verbete);
+        nodo->direita = removerRecursivo(nodo->direita, verbete);
+    }
+    if(verbete->palavra == nodo->item->palavra && verbete->tipo == nodo->item->tipo){ // Verbete encontrado
         if(nodo->esquerda == nullptr || nodo->direita == nullptr){
             Nodo<Verbete> *aux = nodo->esquerda ? nodo->esquerda : nodo->direita;
   
@@ -127,7 +131,10 @@ Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete verb
         } else { // Verbete tem filhos a esquerda e a direita
             Nodo<Verbete> *aux = buscarMenorVerbete(nodo->direita);
 
-            nodo->item = aux->item;
+            cout << " 1 " << nodo->item->palavra << " " << nodo->item->significados->getPrimeiro() << endl;
+            nodo->item = new Verbete(*aux->item);
+            cout << " 2 " << nodo->item->palavra << " " << nodo->item->significados->getPrimeiro() << endl;
+
   
             nodo->direita = removerRecursivo(nodo->direita, verbete);
         }
@@ -159,39 +166,39 @@ Nodo<Verbete>* DicionarioAvl::removerRecursivo(Nodo<Verbete>* nodo, Verbete verb
     return nodo;
 }
 
-void DicionarioAvl::remover(Verbete verbete){
+void DicionarioAvl::remover(Verbete *verbete){
     this->raiz = this->removerRecursivo(this->raiz, verbete);
 }
 
-Verbete DicionarioAvl::verbeteComSignificado(Nodo<Verbete>* nodo){
-    if(nodo == nullptr) return Verbete();
-    Verbete aux = Verbete();
+Verbete* DicionarioAvl::verbeteComSignificado(Nodo<Verbete>* nodo){
+    if(nodo == nullptr) return new Verbete();
+    Verbete* aux = new Verbete();
 
     aux = verbeteComSignificado(nodo->esquerda);
-    if(aux.palavra != "") return aux;
-    if(nodo->item.significados->getPrimeiro() != nullptr){
+    if(aux->palavra != "") return aux;
+    if(nodo->item->significados->getPrimeiro() != nullptr){
         return nodo->item;
     };
     aux = verbeteComSignificado(nodo->direita);
-    if(aux.palavra != "") return aux;
+    if(aux->palavra != "") return aux;
 
-    return Verbete();
+    return new Verbete();
 }
 
 void DicionarioAvl::removerVerbetesComSignificado(){
-    Verbete verbete = Verbete();
+    Verbete* verbete = new Verbete();
     do {
         verbete = this->verbeteComSignificado(this->raiz);
-        if(verbete.palavra != "") this->remover(verbete);
-    } while(verbete.palavra != "");
+        if(verbete->palavra != "") this->remover(verbete);
+    } while(verbete->palavra != "");
 }
 
 void DicionarioAvl::imprimirInorder(Nodo<Verbete>* nodo){
     if(nodo == nullptr) return;
 
     imprimirInorder(nodo->esquerda);
-    cout << nodo->item.palavra << " (" << nodo->item.tipo << ")" << endl;
-    nodo->item.significados->imprimir();
+    cout << nodo->item->palavra << " (" << nodo->item->tipo << ")" << endl;
+    nodo->item->significados->imprimir();
     imprimirInorder(nodo->direita);
 }
 
@@ -199,8 +206,8 @@ void DicionarioAvl::escreverInorder(Nodo<Verbete>* nodo, ofstream *arquivoSaida)
     if(nodo == nullptr) return;
 
     escreverInorder(nodo->esquerda, arquivoSaida);
-    *arquivoSaida << nodo->item.palavra << " (" << nodo->item.tipo << ")" << endl;
-    nodo->item.significados->escrever(arquivoSaida);
+    *arquivoSaida << nodo->item->palavra << " (" << nodo->item->tipo << ")" << endl;
+    nodo->item->significados->escrever(arquivoSaida);
     escreverInorder(nodo->direita, arquivoSaida);
 }
 

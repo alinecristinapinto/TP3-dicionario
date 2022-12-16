@@ -24,14 +24,14 @@ public:
      * 
      * @param verbete Verbete
     */
-    void inserir(Verbete verbete);
+    void inserir(Verbete* verbete);
 
     /**
      * @brief Remove um verbete da arvore
      * 
      * @param verbete Verbete
     */
-    void remover(Verbete verbete);
+    void remover(Verbete* verbete);
 
     /**
      * @brief [DEBUG] imprime verbetes
@@ -89,12 +89,12 @@ private:
     /**
      * @brief Insere um verbete na arvore de forma recursiva
     */
-    Nodo<Verbete>* inserirRecursivo(Nodo<Verbete>* nodo, Verbete verbete);
+    Nodo<Verbete>* inserirRecursivo(Nodo<Verbete>* nodo, Verbete* verbete);
 
     /**
      * @brief Remove um verbete na tabela hash
     */
-    Nodo<Verbete>* removerRecursivo(Nodo<Verbete>* nodo, Verbete verbete);
+    Nodo<Verbete>* removerRecursivo(Nodo<Verbete>* nodo, Verbete* verbete);
    
     /**
      * @brief Pesquisa e retorna o menor nodo de uma arvore (nao vazia)
@@ -104,7 +104,7 @@ private:
     /**
      * @brief Retorna verbete com significado
     */
-    Verbete verbeteComSignificado(Nodo<Verbete>* nodo);
+    Verbete* verbeteComSignificado(Nodo<Verbete>* nodo);
 
     /**
      * @brief [DEBUG] imprime inorder

@@ -45,7 +45,7 @@ void Significado::escrever(ofstream *arquivoSaida){
     No<string>* atual = this->primeiro;
 
     while(atual){
-        *arquivoSaida << posicao <<". " << atual->item << endl;
+        *arquivoSaida << posicao <<"." << atual->item << endl;
         atual = atual->proximo;
         posicao++;
     }

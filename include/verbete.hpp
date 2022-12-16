@@ -28,6 +28,8 @@ public:
     */
     Verbete(string palavra, string tipo, Significado *significados);
 
+    Verbete(const Verbete& verbete);
+
     /**
      * @brief Destrutor da classe
     */

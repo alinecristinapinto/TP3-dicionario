@@ -13,7 +13,7 @@ template <typename T> struct No {
  * @brief Struct que representa um no de uma arvore generica generica
  */
 template <typename T> struct Nodo {  
-    T item; 
+    T* item; 
     Nodo* esquerda;
     Nodo* direita; 
     int altura;
