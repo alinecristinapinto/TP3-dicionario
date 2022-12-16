@@ -28,7 +28,7 @@ void ListaPorPrioridade::inserir(Verbete verbete){
 
             return;
         } else if (verbete.palavra == aux->item.palavra && verbete.tipo == aux->item.tipo){
-            if(verbete.significados) 
+            if(verbete.significados->primeiro) 
                 aux->item.significados->inserir(verbete.significados->getPrimeiro()->item);
 
             return;
@@ -99,7 +99,7 @@ void ListaPorPrioridade::escrever(ofstream *arquivoSaida){
 
     while(atual){
         *arquivoSaida << atual->item.palavra << " (" << atual->item.tipo << ")" << endl;
-        if(atual->item.significados) atual->item.significados->imprimir();
+        if(atual->item.significados) atual->item.significados->escrever(arquivoSaida);
         atual = atual->proximo;
     } 
 }
