@@ -6,7 +6,8 @@
 #include "verbete.hpp"
 #include "listaPorPrioridade.hpp"
 
-#define M 26 // 26 letras do alfabeto
+#define M 26 // 26 letras do alfabeto 
+#define N 26 * 2 // 52 (Maiusculo / Minusculo)
 
 using namespace std;
 
@@ -68,8 +69,8 @@ public:
     ~DicionarioHash();
 
 private:
-    ListaPorPrioridade tabela[M];
-    string alfabeto = "abcdefghijklmnopqrstuvwxyz";
+    ListaPorPrioridade tabela[N];
+    string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     /**
      * @brief Aplica formula do hash h(i) = i % 26 para encontrar indice da tabela referente ao verbete

@@ -4,7 +4,9 @@ DicionarioHash::DicionarioHash(){}
 
 int DicionarioHash::Hash(string verbete){
     char i = verbete[0];
-    return tolower(i) % M;
+    bool maiusculo = i >= 65 && i <=90; // ASCII entre A e Z
+
+    return !maiusculo ? tolower(i) % M : (tolower(i) % M) + 26;
 }
 
 void DicionarioHash::inserir(Verbete verbete){
@@ -23,7 +25,7 @@ Verbete DicionarioHash::pesquisar(string verbete, string tipoVerbete){
 }
 
 void DicionarioHash::imprimir(){
-    for(int i=0; i<M; i++){
+    for(int i=0; i<N; i++){
         if(!this->tabela[i].vazia()){
             this->tabela[i].imprimir();
         }
@@ -33,7 +35,7 @@ void DicionarioHash::imprimir(){
 void DicionarioHash::imprimirOrdenado(){
     int indice = 0;
 
-    for(int i=0; i<M; i++){
+    for(int i=0; i<N; i++){
         string letra(1, this->alfabeto[i]);
         indice = this->Hash(letra);
 
@@ -46,7 +48,7 @@ void DicionarioHash::imprimirOrdenado(){
 void DicionarioHash::removerVerbetesComSignificado(){
     No<Verbete>* aux = nullptr;
 
-    for(int i=0; i<M; i++){
+    for(int i=0; i<N; i++){
         if(!this->tabela[i].vazia()){
             aux = this->tabela[i].getLista();
             while (aux){
@@ -63,7 +65,7 @@ void DicionarioHash::removerVerbetesComSignificado(){
 void DicionarioHash::escreverOrdenado(ofstream *arquivoSaida){
     int indice = 0;
 
-    for(int i=0; i<M; i++){
+    for(int i=0; i<52; i++){
         string letra(1, this->alfabeto[i]);
         indice = this->Hash(letra);
 
@@ -76,7 +78,7 @@ void DicionarioHash::escreverOrdenado(ofstream *arquivoSaida){
 DicionarioHash::~DicionarioHash(){
     No<Verbete>* aux = nullptr;
 
-    for(int i=0; i<M; i++){
+    for(int i=0; i<N; i++){
         if(!this->tabela[i].vazia()){
             aux = this->tabela[i].getLista();
             while (aux){

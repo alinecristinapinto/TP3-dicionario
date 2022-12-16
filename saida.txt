@@ -1,5 +1,19 @@
 AIDS (n)
 1. acquired immune deficiency syndrome
+Bible (n)
+1. Christian Bible, Book, Good Book, Holy Scripture
+Europe (n)
+1. continent
+Koran (n)
+1. Quran, al-Qur'an, Islam Holy Book
+Mars (n)
+1. the red planet
+Sunday (n)
+1. Lord's Day
+Venus (n)
+1. planet evening star morning star
+X-ray (n)
+1. radiogram, X-ray picture
 abandon (v)
 1. forsake, desert
 abbey (n)
@@ -461,8 +475,6 @@ awful (a)
 awkward (a)
 axis (n)
 1. axis of rotation
-Bible (n)
-1. Christian Bible, Book, Good Book, Holy Scripture
 baby (n)
 1. babe, infant
 back (n)
@@ -2424,8 +2436,6 @@ duty (n)
 2. tariff
 dynamic (a)
 1. dynamical, characterized by action
-Europe (n)
-1. continent
 eager (a)
 eagle (n)
 1. bird
@@ -4088,8 +4098,6 @@ justice (n)
 justification (n)
 justify (v)
 1. excuse, rationalize
-Koran (n)
-1. Quran, al-Qur'an, Islam Holy Book
 keep (v)
 1. preserve
 2. maintain
@@ -4476,8 +4484,6 @@ lunch (n)
 1. luncheon, midday meal
 lung (n)
 1. respiratory organ
-Mars (n)
-1. the red planet
 machine (n)
 machinery (n)
 1. machines
@@ -6559,8 +6565,6 @@ runner (n)
 rural (a)
 rush (n)
 1. haste, hurry, rushing
-Sunday (n)
-1. Lord's Day
 sacred (a)
 1. concerned with religion or religious purposes
 sacrifice (n)
@@ -8139,8 +8143,6 @@ user (n)
 usual (a)
 utter (v)
 1. emit
-Venus (n)
-1. planet evening star morning star
 vacant (a)
 vacuum (n)
 1. vacuum cleaner
@@ -8509,8 +8511,6 @@ written (a)
 wrong (a)
 1. contrary to conscience or morality or law
 2. based on error
-X-ray (n)
-1. radiogram, X-ray picture
 yacht (n)
 yard (n)
 1. grounds
